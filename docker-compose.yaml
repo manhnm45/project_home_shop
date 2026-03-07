@@ -1,0 +1,66 @@
+# version: "3.8"
+
+x-base-config: &base-config
+  build:
+    context: .
+    dockerfile: Dockerfile
+  image: project_home_image:0.0.1
+  restart: always
+  network_mode: host
+  environment:
+    - OPENCV_FFMPEG_CAPTURE_OPTIONS=rtsp_transport;tcp
+  volumes:
+    - /home/minhanh/Downloads/project_home:/project_home
+
+services:
+  run_rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq_service
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: guest
+      RABBITMQ_DEFAULT_PASS: guest
+      RABBITMQ_LOAD_DEFINITIONS: /project_home/definitions.json
+    restart: always
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  read_rtsp:
+    <<: *base-config
+    depends_on:
+      run_rabbitmq:
+        condition: service_healthy
+    entrypoint: bash -c "cd /project_home && python3 read_rtsp.py"
+
+  check_rule:
+    <<: *base-config
+    depends_on:
+      run_rabbitmq:
+        condition: service_healthy
+    entrypoint: bash -c "cd /project_home && python3 check_rule.py"
+
+  # build_index:
+  #   <<: *base-config
+  #   entrypoint: bash -c "cd /project_home && python3 build_index.py"
+  run_worker:
+    <<: *base-config
+    depends_on:
+      run_rabbitmq:
+        condition: service_healthy
+    entrypoint: bash -c "cd /project_home/web_sell/worker && python3 worker.py"
+  run_web:
+    <<: *base-config
+    depends_on:
+      run_rabbitmq:
+        condition: service_healthy
+    entrypoint: bash -c "cd /project_home/web_sell && uvicorn web_sell.asgi:application --host 0.0.0.0 --port 8000"
+    
+volumes:
+  rabbitmq_data:

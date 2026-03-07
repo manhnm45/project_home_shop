@@ -1,0 +1,58 @@
+x-base-config: &base-config
+  image: camcheckin-python3.8-base:0.0.1
+  restart: always
+  network_mode: host
+  environment:
+    - OPENCV_FFMPEG_CAPTURE_OPTIONS="rtsp_transport;tcp"
+  volumes:
+    - /home1/data/dongtrinh/workspace/camcheckin-core:/workspace
+
+x-gpu-config: &gpu-config
+  image: camcheckin-nvidia24.09-gpu:0.0.2
+  restart: always
+  ipc: host
+  shm_size: 16G
+  environment:
+    - CUDA_MODULE_LOADING=LAZY
+    - OPENCV_FFMPEG_CAPTURE_OPTIONS="rtsp_transport;tcp"
+  volumes:
+    - /home1/data/dongtrinh/workspace/camcheckin-core:/workspace
+
+  deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              # count: 1
+              device_ids: ["4"]
+              capabilities: [gpu]
+
+services:
+  camcheckin_read_rtsp_tensorrt:
+    # network_mode: host
+    <<: *gpu-config
+    entrypoint: 
+      - bash
+      - -c
+      - cd /workspace && python3 -u process_read_rtsp_tensorrt_multiprocess.py
+
+  camcheckin_consumer_frame:
+    <<: *gpu-config
+    entrypoint: 
+      - bash
+      - -c
+      - cd /workspace && python3 -u process_consumer_frame.py
+
+  camcheckin_build_index:
+    <<: *gpu-config
+    entrypoint:
+      - bash
+      - -c
+      - cd /workspace && python3 -u process_build_index.py
+
+  # camcheckin_face_search:
+  #   <<: *base-config
+  #   entrypoint: 
+  #     - bash
+  #     - -c
+  #     - cd /workspace && python3 -u process_face_search.py

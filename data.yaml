@@ -1,0 +1,6 @@
+train: /home1/data/anhnguyen/project_home/person_detect_dataset/images/train
+val: /home1/data/anhnguyen/project_home/person_detect_dataset/images/valid
+test: /home1/data/anhnguyen/project_home/person_detect_dataset/images/test
+nc: 1
+names: ['Persona']
+

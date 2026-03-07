@@ -1,0 +1,6 @@
+train: /home/minhanh/Downloads/craw_data_product_sell_web/object_product_sell_yolov8/images/train
+val: /home/minhanh/Downloads/craw_data_product_sell_web/object_product_sell_yolov8/images/valid
+test: /home/minhanh/Downloads/craw_data_product_sell_web/object_product_sell_yolov8/images/test
+nc: 1
+names: ['sell_object']
+

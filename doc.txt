@@ -1,0 +1,9 @@
+#run main project
+-docker attach project_home
+-cd /project_home
+-cd web_sell
+-python3 manage.py runserver/ uvicorn web_sell.asgi:application --host 0.0.0.0 --port 8000
+
+
+#run docker sumary all project
+docker run -it --name project_home_dev --gpus all --rm -p 8000:8000  --network host  -v /home/minhanh/Downloads/project_home:/project_home   project_home_image:0.0.1

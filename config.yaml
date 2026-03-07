@@ -1,0 +1,8 @@
+
+rabbimq_port: "5672"
+rabbimq_username: guest
+rabbimq_password: guest
+exchange: my_exchange
+vitualhost: /
+routing_key: my_routing_key
+rabbimq_host: "localhost"

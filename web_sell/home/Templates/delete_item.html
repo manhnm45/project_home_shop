@@ -1,0 +1,21 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mt-5">
+            <div class="card-header bg-danger text-white">
+                <h3>Xóa Sản Phẩm</h3>
+            </div>
+            <div class="card-body">
+                <p>Bạn có chắc chắn muốn xóa sản phẩm "<strong>{{ product.name }}</strong>" không?</p>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <a href="{% url 'home' %}" class="btn btn-secondary">Hủy</a>
+                    <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

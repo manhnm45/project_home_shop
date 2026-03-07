@@ -1,0 +1,33 @@
+{% extends 'home.html' %}
+{% load static %}
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card mt-5">
+            <div class="card-header bg-primary text-white">
+                <h3>Thêm Sản Phẩm Mới</h3>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Tên Sản Phẩm</label>
+                        <input type="text" class="form-control" id="name" name="name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cost" class="form-label">Giá (VNĐ)</label>
+                        <input type="number" class="form-control" id="cost" name="cost" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Ảnh Sản Phẩm</label>
+                        <input type="file" class="form-control" id="image" name="image" required>
+                    </div>
+
+                    <a href="{% url 'home' %}" class="btn btn-secondary">Hủy</a>
+                    <button type="submit" class="btn btn-success">Thêm Sản Phẩm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
