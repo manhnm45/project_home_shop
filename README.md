@@ -83,6 +83,4 @@ The system uses several pre-trained and fine-tuned models located in the project
 *   [ ] Enhance the RAG system to process real-time inventory changes.
 *   [ ] Add advanced analytics and heatmaps for customer movement tracking.
 
-## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
