@@ -197,7 +197,7 @@ def load_index(path_index):
 
 if __name__=="__main__":
     import numpy as np
-    folder_image_build_index = "/home/minhanh/Downloads/project_home/folder_image_crop_alige"
+    folder_image_build_index = "./folder_image_crop_alige"
     # folder_mat = "/home/minhanh/Downloads/project_home/mat_file_save"
     # image_path="/home/minhanh/Downloads/project_home/image_smallmillo.png"
     # label="smallmillo"
