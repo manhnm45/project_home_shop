@@ -8,9 +8,9 @@ A comprehensive AI-powered system designed for smart retail environments. This p
 
 ## ✨ Key Features
 
-*   **📷 Camera Management & RTSP Processing**: Real-time video stream ingestion (`read_rtsp.py`) from multiple IP cameras with a comprehensive dashboard for camera configuration.
-*   **👤 Facial Detection & Recognition**: Real-time facial tracking, alignment, and recognition using high-performance models (ResNet50/CLIP) and optimized vector search (FAISS/HNSW).
-*   **🛒 Retail Object Detection (OBB & YOLO)**: Specialized detection and classification of retail products on shelves using YOLOv8/YOLOv11 and Oriented Bounding Boxes (OBB).
+*   **🛒 Real-time Product Recognition via RTSP**: Ingests live video streams (`read_rtsp.py`) from IP cameras to perform real-time detection and classification of retail products on shelves using YOLOv8/YOLOv11 and Oriented Bounding Boxes (OBB).
+*   **📷 Camera Management Dashboard**: A comprehensive web interface for administrators to configure and manage IP cameras monitoring the store.
+
 *   **🤖 RAG-based Q&A System**: An intelligent Retrieval-Augmented Generation module (`Rag_answear_question`) utilizing ChromaDB to answer queries about product descriptions and store inventory.
 *   **📊 Web Dashboard**: A modern web interface (`web_sell`) for administrators to manage cameras, view recognition logs, and monitor system health.
 *   **🔄 Scalable Architecture**: Built with a message broker (RabbitMQ) and robust database backend (PostgreSQL) for reliable inter-service communication and data storage.
